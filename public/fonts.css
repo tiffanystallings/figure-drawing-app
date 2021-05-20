@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'DancingScript';
+    src: url('fonts/dancing-script-v16-latin-regular.eot');
+    src: url('fonts/dancing-script-v16-latin-regular.woff2') format('woff2'),
+         url('fonts/dancing-script-v16-latin-regular.woff') format('woff'),
+         url('fonts/dancing-script-v16-latin-regular.ttf') format('truetype'),
+         url('fonts/dancing-script-v16-latin-regular.svg') format('svg')
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/roboto-v27-latin-regular.eot');
+    src: url('fonts/roboto-v27-latin-regular.woff2') format('woff2'),
+         url('fonts/roboto-v27-latin-regular.woff') format('woff'),
+         url('fonts/roboto-v27-latin-regular.ttf') format('truetype'),
+         url('fonts/roboto-v27-latin-regular.svg') format('svg')
+}
