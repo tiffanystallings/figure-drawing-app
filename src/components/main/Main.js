@@ -1,20 +1,16 @@
 import FileUploadSection from "./FileUploadSection";
-import StyledContentArea from "../styled/StyledContentArea";
 import StyledContentParent from "../styled/StyledContentParent";
 import FilePreviewSection from "./FilePreviewSection";
+import { useState } from "react";
 
 export default function Main(props) {
+    const [images, setSelectedImages] = useState([]);
+
     return(
         <main>
             <StyledContentParent flexDirection="column">
-                <StyledContentArea 
-                    width="1400px" 
-                    height="500px" 
-                    flexDirection="column" 
-                    justify="center">
-                    <FileUploadSection />
-                    <FilePreviewSection />
-                </StyledContentArea>
+                <FileUploadSection setSelectedImages={setSelectedImages} />
+                <FilePreviewSection images={images} />
             </StyledContentParent>
         </main>
     )
