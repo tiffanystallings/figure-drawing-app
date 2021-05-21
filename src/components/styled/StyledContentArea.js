@@ -1,38 +1,51 @@
 import styled, { withTheme } from "styled-components";
 
+const ContentArea = styled.div`
+    width: 100%;
+    max-width: ${props => props.width ?? '100%'};
+    min-height: ${props => props.height ?? '0'};
+    background-color: ${props => props.theme.main.bg};
+    color: ${props => props.theme.main.fg};
+    font-family: ${props => props.theme.main.font};
+    padding: ${props => props.padding ?? '15px'};
+    margin: ${props => props.margin ?? '15px auto'};
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: ${props => props.flexDirection ?? 'row'};
+    ${props => (props.flexDirection === 'column' ? 
+        `align-items: ${props.justify ?? 'flex-start'};` : 
+        `justify-content: ${props.justify ?? 'flex-start'};`)}
+    ${props => (props.flexDirection !== 'column' ? 
+        `align-items: ${props.align ?? 'flex-start'};` : 
+        `justify-content: ${props.align ?? 'flex-start'};`)}
+
+`
+
 function StyledContentArea(props) {
     const {
         width,
         height,
-        theme,
         flexDirection,
         justify,
         align,
         padding,
-        margin
+        margin,
+        children,
+        className
     } = props;
 
-    const ContentArea = styled.div`
-        width: 100%;
-        max-width: ${width ?? '100%'};
-        min-height: ${height ?? '0'};
-        background-color: ${theme.main.bg};
-        color: ${theme.main.fg};
-        font-family: ${theme.main.font};
-        padding: ${padding ?? '15px'};
-        margin: ${margin ?? '15px auto'};
-        display: flex;
-        flex-direction: ${flexDirection ?? 'row'};
-        ${flexDirection === 'column' ? 
-            `align-items: ${justify ?? 'flex-start'};` : 
-            `justify-content: ${justify ?? 'flex-start'};`};
-        ${flexDirection !== 'column' ? 
-            `align-items: ${align ?? 'flex-start'};` : 
-            `justify-content: ${align ?? 'flex-start'};`};
-
-    `
-
-    return (<ContentArea>{props.children}</ContentArea>);
+    return (
+        <ContentArea 
+            width={width}
+            height={height}
+            flexDirection={flexDirection}
+            justify={justify}
+            align={align}
+            padding={padding}
+            margin={margin}
+            className={className}>
+            {children}
+        </ContentArea>);
 }
 
 export default withTheme(StyledContentArea);
