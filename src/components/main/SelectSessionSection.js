@@ -21,16 +21,24 @@ export default function SelectSessionSection (props) {
     ]
 
     const handleSessionChange = (e, session) => {
-        console.log(e, session);
+        if (e === -1) {
+            let sessionListClone = sessionList;
+            let idx = _.findLastIndex(sessionListClone, s => s.name === session.name);
+            sessionListClone.splice(idx, 1);
+            setSessionList(sessionListClone);
+        } else if (e === 1) {
+            let sessionListClone = sessionList;
+            sessionListClone.push({id: _.uniqueId(), ...session});
+            setSessionList(sessionListClone);
+        }
     }
 
     const SessionSelectorList = () => _.map(sessionOptions, session => (
         <StyledSelector 
             name={session.name} 
-            value={0}
             key={session.name}
             unlimited={session.unlimited}
-            onChange={e => handleSessionChange(e, session)}
+            onValueChange={e => handleSessionChange(e, session)}
         />
     ))
 
