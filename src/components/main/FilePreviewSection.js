@@ -9,7 +9,6 @@ export default function FilePreviewSection(props) {
     const {setSelectedImages, images} = props;
 
     const ThumbnailList = () => {
-        console.count('ThumnailList called: ')
         return _.map(images, (image) => (  
             <StyledImageThumbnail 
                 src={image.src} 
