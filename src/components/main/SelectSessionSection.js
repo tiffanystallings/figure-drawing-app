@@ -76,8 +76,6 @@ export default function SelectSessionSection (props) {
             let minutes = `${!!Math.floor(totalSeconds / 60) ? `${Math.floor(totalSeconds / 60)} minute(s)` : ''}`;
             let seconds = `${!!totalSeconds % 60 ? `${totalSeconds % 60} seconds` : ''}`;
 
-            console.log(minutes, seconds);
-
             return `${minutes}${(!!minutes && !!seconds) ? ', ' : '' }${seconds}`;
         }
     }
