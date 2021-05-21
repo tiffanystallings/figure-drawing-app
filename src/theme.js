@@ -29,7 +29,11 @@ const theme = {
     },
     displayArea: {
         bg: lightYellow,
-        fg: independence
+        fg: lavender
+    },
+    link: {
+        color: lavender,
+        hover: salmon
     }
 
 };
