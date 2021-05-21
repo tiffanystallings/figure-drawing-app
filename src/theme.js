@@ -1,4 +1,4 @@
-const lightYellow = '#efecca';
+const lightBlue = '#CFE4F2';
 const blue = '#a9cbb7';
 const lavender = '#725D68';
 const salmon = '#e49273';
@@ -14,7 +14,7 @@ const theme = {
     },
     header: {
         bg: independence,
-        fg: lightYellow,
+        fg: lightBlue,
         font: 'DancingScript',
         subtitle: lavender
     },
@@ -28,7 +28,7 @@ const theme = {
         },
     },
     displayArea: {
-        bg: lightYellow,
+        bg: lightBlue,
         fg: lavender
     },
     link: {
