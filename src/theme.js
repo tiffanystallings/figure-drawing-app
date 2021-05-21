@@ -7,8 +7,11 @@ const white = '#fff';
 const transparent = 'transparent';
 
 const theme = {
+    body: {
+        bg: blue
+    },
     main: {
-        bg: blue,
+        bg: white,
         fg: independence,
         font: 'Roboto'
     },

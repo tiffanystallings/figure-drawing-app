@@ -8,8 +8,9 @@ import StyledDraggableCard from "../styled/StyledDraggableCard";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import StyledLink from "../styled/StyledLink";
+import StyledButton from "../styled/StyledButton";
 
-export default function SelectSessionSection (props) {
+export default function SelectSessionSection ({images}) {
     const [sessionList, setSessionList] = useState([]);
     const [sessionOptions, setSessionOptions] = useState([
         { name: '30 seconds', unlimited: false, seconds: 30, value: 0 },
@@ -140,9 +141,21 @@ export default function SelectSessionSection (props) {
                     padding="0"
                     justify="space-between">
                         <span>Total Time: {getTotalTime()}</span>
-                        <StyledLink onClick={() => handleRemoveAll()}>RemoveAll</StyledLink>
+                        <StyledLink onClick={() => handleRemoveAll()}>Remove All</StyledLink>
                 </StyledContentArea>
 
+                <StyledContentArea
+                    width="1000px"
+                    margin="0"
+                    padding="10px 0"
+                    justify="center">
+                    <StyledButton 
+                        disabled={!sessionList.length || !images.length} 
+                        onClick={() => console.log('Wee~!')}
+                    >
+                        Click to begin practice session!
+                    </StyledButton>
+                </StyledContentArea>
             </StyledContentArea>
         </section>
     )

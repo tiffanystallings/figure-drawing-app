@@ -4,7 +4,7 @@ import StyledContentArea from "./StyledContentArea";
 const AlternateContentArea = styled(StyledContentArea)`
 &&& {
     background-color: ${props => props.theme.displayArea.bg};
-    border: 3px solid ${props => props.theme.displayArea.fg};
+    border: 2px solid ${props => props.theme.displayArea.fg};
     height: ${props => props.maxHeight ?? '300px'};
     align-content: flex-start;
     align-items: flex-start;
