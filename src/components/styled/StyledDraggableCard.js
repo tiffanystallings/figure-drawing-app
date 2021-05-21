@@ -15,7 +15,12 @@ const Card = styled(DraggableCard)`
 
 const CardIcon = styled.i`
     font-size: 20px;
-    padding: 0 10px;
+    padding: 0 10px 5px;
+    font-style: normal;
+    border: 0;
+    background-color: transparent;
+    color: ${props => props.theme.button.fg};
+    cursor: pointer;
 `
 
 const CardContent = styled.div`
@@ -24,11 +29,12 @@ const CardContent = styled.div`
 `
 
 
-function StyledDraggableCard ({children}) {
+function StyledDraggableCard ({children, id, index, onDrag, onRemove}) {
     return (
-        <Card>
+        <Card id={id} index={index} onDrag={onDrag}>
             <CardIcon>↕</CardIcon>
             <CardContent>{children}</CardContent>
+            <CardIcon as="button" onClick={onRemove}>✖</CardIcon>
         </Card>
     );
 }

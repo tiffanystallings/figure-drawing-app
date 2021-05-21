@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import InputNumber from "rc-input-number";
 import styled, { withTheme } from "styled-components";
 import "rc-input-number/assets/index.css";
@@ -52,21 +51,12 @@ const StyledLabel = styled(Label)`
 `
 
 function StyledSelector (props) {
-    const {name, onValueChange} = props;
-    const [value, setValue] = useState(0);
-    const [lastValue, setLastValue] = useState(value);
+    const {name, value, onValueChange} = props;
 
-    useEffect(() => {
-        if (value !== lastValue) {
-            onValueChange(value < lastValue ? -1 : 1);
-        }
-        
-    }, [value, lastValue, onValueChange])
 
     const handleChange = (e) => {
         if (e !== value) {
-            setLastValue(value);
-            setValue(e); 
+            onValueChange(e < value ? -1 : 1);
         }
     }
 
