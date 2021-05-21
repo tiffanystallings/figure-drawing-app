@@ -5,7 +5,10 @@ const AlternateContentArea = styled(StyledContentArea)`
 &&& {
     background-color: ${props => props.theme.displayArea.bg};
     border: 3px solid ${props => props.theme.displayArea.fg};
-    max-height: ${props => props.maxHeight ?? '400px'};
+    height: ${props => props.maxHeight ?? '300px'};
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
     overflow-y: auto;
 }
 `

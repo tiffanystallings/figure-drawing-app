@@ -2,6 +2,7 @@ import styled, { withTheme } from "styled-components";
 
 const Link = styled.a`
     color: ${props => props.theme.link.color};
+    cursor: pointer;
 
     &:hover {
         color: ${props => props.theme.link.hover}
