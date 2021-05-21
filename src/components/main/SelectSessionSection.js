@@ -7,6 +7,7 @@ import _ from "lodash";
 import StyledDraggableCard from "../styled/StyledDraggableCard";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import StyledLink from "../styled/StyledLink";
 
 export default function SelectSessionSection (props) {
     const [sessionList, setSessionList] = useState([]);
@@ -50,6 +51,11 @@ export default function SelectSessionSection (props) {
         setSessionOptions(sessionOptionsClone);
     }
 
+    const handleRemoveAll = () => {
+        setSessionList([]);
+        setSessionOptions(_.map(sessionOptions, option => ({...option, value: 0})));
+    }
+
     const handleDrag = useCallback((dragIdx, hoverIdx) => {
         let sessionListClone = [...sessionList];
         let dragCard = sessionListClone[dragIdx];
@@ -59,6 +65,22 @@ export default function SelectSessionSection (props) {
 
         setSessionList(sessionListClone);
     }, [sessionList]);
+
+    const getTotalTime = () => {
+        if(_.some(sessionList, session => !!session.unlimited)) {
+            return 'Unlimited';
+        } else if(sessionList.length === 0) {
+            return 0;
+        } else {
+            let totalSeconds = _.reduce(sessionList, (sum, session) => sum + session.seconds, 0);
+            let minutes = `${!!Math.floor(totalSeconds / 60) ? `${Math.floor(totalSeconds / 60)} minute(s)` : ''}`;
+            let seconds = `${!!totalSeconds % 60 ? `${totalSeconds % 60} seconds` : ''}`;
+
+            console.log(minutes, seconds);
+
+            return `${minutes}${(!!minutes && !!seconds) ? ', ' : '' }${seconds}`;
+        }
+    }
 
     const SessionSelectorList = () => _.map(sessionOptions, session => (
         <StyledSelector 
@@ -113,6 +135,16 @@ export default function SelectSessionSection (props) {
                         </DndProvider>
                     </StyledAlternateContentArea>
                 </StyledContentArea>
+
+                <StyledContentArea
+                    width="1000px"
+                    margin="0"
+                    padding="0"
+                    justify="space-between">
+                        <span>Total Time: {getTotalTime()}</span>
+                        <StyledLink onClick={() => handleRemoveAll()}>RemoveAll</StyledLink>
+                </StyledContentArea>
+
             </StyledContentArea>
         </section>
     )
