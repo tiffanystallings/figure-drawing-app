@@ -4,6 +4,8 @@ import StyledContentArea from "../styled/StyledContentArea";
 import StyledSelector from "../styled/StyledSelector";
 import StyledSubHeading from "../styled/StyledSubHeading";
 import _ from "lodash";
+import StyledDraggableList from "../styled/StyledDraggableList";
+import StyledDraggableCard from "../styled/StyledDraggableCard";
 
 export default function SelectSessionSection (props) {
     const [sessionList, setSessionList] = useState([]);
@@ -65,8 +67,13 @@ export default function SelectSessionSection (props) {
                     <StyledAlternateContentArea
                         width="60%"
                         margin="0"
+                        padding="5px"
+                        maxHeight="300px"
                         flexDirection="column">
-                        {/* Reorderable table of selections */}
+                        <StyledDraggableList>
+                            <StyledDraggableCard>Test1</StyledDraggableCard>
+                            <StyledDraggableCard>Test2</StyledDraggableCard>
+                        </StyledDraggableList>
                     </StyledAlternateContentArea>
                 </StyledContentArea>
             </StyledContentArea>

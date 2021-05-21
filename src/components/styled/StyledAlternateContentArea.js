@@ -5,7 +5,7 @@ const AlternateContentArea = styled(StyledContentArea)`
 &&& {
     background-color: ${props => props.theme.displayArea.bg};
     border: 3px solid ${props => props.theme.displayArea.fg};
-    max-height: 400px;
+    max-height: ${props => props.maxHeight ?? '400px'};
     overflow-y: auto;
 }
 `
@@ -14,13 +14,17 @@ function StyledAlternateContentArea(props) {
     const {
         children, 
         width,
-        margin
+        margin,
+        padding,
+        maxHeight
     } = props;
 
 
     return(
         <AlternateContentArea
+            maxHeight={maxHeight}
             width={width}
+            padding={padding}
             margin={margin}>
             {children}
         </AlternateContentArea>)
