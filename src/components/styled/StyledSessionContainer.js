@@ -7,6 +7,8 @@ const Main = styled.main`
     flex-direction: column;
     max-height: 100vh;
     overflow: hidden;
+    position: relative;
+    z-index: 10;
 `
 
 function StyledSessionContainer (props) {
