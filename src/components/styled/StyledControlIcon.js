@@ -8,6 +8,7 @@ const Icon = styled.button`
     cursor: ${props => props.disabled ? 'default' : 'pointer'};
     opacity: ${props => props.disabled ? '0.5' : '1'};
     font-family: revert;
+    min-width: 55px;
 `
 
 function StyledControlIcon (props) {
