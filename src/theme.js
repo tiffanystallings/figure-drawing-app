@@ -5,6 +5,9 @@ const salmon = '#e49273';
 const independence = '#3d3a4b';
 const white = '#fff';
 const transparent = 'transparent';
+const black = '#000';
+const darkGray = '#333';
+const lightGray = '#eee'
 
 const theme = {
     body: {
@@ -37,8 +40,13 @@ const theme = {
     link: {
         color: lavender,
         hover: salmon
+    },
+    session: {
+        bg: black,
+        toolbar: darkGray,
+        icons: lightGray,
+        timer: white
     }
-
 };
 
 export default theme;
