@@ -7,7 +7,7 @@ const white = '#fff';
 const transparent = 'transparent';
 const black = '#000';
 const darkGray = '#333';
-const lightGray = '#eee'
+const lightGray = '#aaa'
 
 const theme = {
     body: {
