@@ -6,7 +6,8 @@ const Icon = styled.button`
     background-color: transparent;
     border: 0;
     cursor: ${props => props.disabled ? 'default' : 'pointer'};
-    opacity: ${props => props.disabled ? '0.7' : '1'};
+    opacity: ${props => props.disabled ? '0.5' : '1'};
+    font-family: revert;
 `
 
 function StyledControlIcon (props) {

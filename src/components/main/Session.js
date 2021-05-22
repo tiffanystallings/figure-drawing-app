@@ -38,18 +38,26 @@ function Session (props) {
         }
     }, [currentIndex, setCurrentImage, usedImages, sessionList]);
 
-    const onNext = () => {
-        if (!clonedImages.length) {
-            // Reload clonedImages if we're out
-            clonedImages.push(...images);
-        }
+    const endSession = () => {
+        console.log('All done!');
+    }
 
-        if (currentIndex === usedImages.length - 1) {
-            // We're at the end of usedImages
-            addNextImage();
+    const onNext = () => {
+        if (currentIndex !== sessionList.length - 1) {
+            if (!clonedImages.length) {
+                // Reload clonedImages if we're out
+                clonedImages.push(...images);
+            }
+    
+            if (currentIndex === usedImages.length - 1) {
+                // We're at the end of usedImages
+                addNextImage();
+            }
+
+            setCurrentIndex(currentIndex + 1);
+        } else {
+            endSession();
         }
-            
-        setCurrentIndex(currentIndex + 1);
     }
 
     const onPrev = () => {
@@ -62,8 +70,10 @@ function Session (props) {
         <StyledSessionContainer>
             <StyledSessionImage src={currentImage} />
             <StyledControlBar>
-                <StyledControlIcon disabled={currentIndex === 0} onClick={onPrev}>⧏</StyledControlIcon>
-                <StyledControlIcon onClick={onNext}>⧐</StyledControlIcon>
+                <StyledControlIcon disabled={currentIndex === 0} onClick={onPrev}>⏮</StyledControlIcon>
+                <StyledControlIcon disabled={paused} onClick={() => setPaused(true)}>⏸</StyledControlIcon>
+                <StyledControlIcon disabled={!paused} onClick={() => setPaused(false)}>⏵</StyledControlIcon>
+                <StyledControlIcon disabled={currentIndex === sessionList.length -1} onClick={onNext}>⏭</StyledControlIcon>
             </StyledControlBar>
             { (!!currentSession && !currentSession?.unlimited) && (<Timer session={currentSession} paused={paused} handleNext={onNext} />) }
         </StyledSessionContainer>
