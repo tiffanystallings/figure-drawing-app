@@ -1,7 +1,7 @@
-import { Redirect, Route, Router, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Header from "./components/main/Header";
 import Main from "./components/main/Main";
+import Session from "./components/main/Session";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           </Route>
 
           <Route path="/session">
-            Hello session!
+            <Session />
           </Route>
 
           <Route path="/*">

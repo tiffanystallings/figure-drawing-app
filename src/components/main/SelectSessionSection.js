@@ -149,12 +149,10 @@ export default function SelectSessionSection ({images, startSession}) {
                     margin="0"
                     padding="10px 0"
                     justify="center">
-                    <StyledButton 
-                        disabled={!sessionList.length || !images.length} 
-                        onClick={() => startSession(images, sessionList)}
-                    >
-                        Click to begin practice session!
-                    </StyledButton>
+                    <StyledButton
+                        disabled={!sessionList.length || !images.length}
+                        to={{ pathname: '/session', state: {images, sessionList}}} 
+                    >Click here to start your practice session!</StyledButton>
                 </StyledContentArea>
             </StyledContentArea>
         </section>

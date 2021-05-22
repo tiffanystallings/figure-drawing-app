@@ -5,10 +5,10 @@ import { useState } from "react";
 import SelectSessionSection from "./SelectSessionSection";
 import { withTheme } from "styled-components";
 import Header from "./Header";
+import { withRouter } from "react-router";
 
 function Main({theme}) {
     const [images, setSelectedImages] = useState([]);
-
 
     return(
         <main style={{backgroundColor: theme?.body?.bg}}>
@@ -22,4 +22,4 @@ function Main({theme}) {
     )
 }
 
-export default withTheme(Main);
+export default withRouter(withTheme(Main));
