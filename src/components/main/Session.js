@@ -4,16 +4,19 @@ import StyledControlBar from "../styled/StyledControlBar";
 import StyledControlIcon from "../styled/StyledControlIcon";
 import StyledSessionContainer from "../styled/StyledSessionContainer";
 import StyledSessionImage from "../styled/StyledSessionImage";
+import Timer from "./Timer";
 
 function Session (props) {
     const {location} = props;
     const {sessionList, images} = location.state;
 
     const clonedImages = useMemo(() => [...images], [images]);
-
     const usedImages = useMemo(() => [], []);
+
     const [currentIndex, setCurrentIndex] = useState(null);
     const [currentImage, setCurrentImage] = useState(null);
+    const [currentSession, setCurrentSession] = useState(null);
+    const [paused, setPaused] = useState(false);
 
     const addNextImage = useCallback(() => {
         let idx = Math.floor(Math.random() * clonedImages.length);
@@ -29,7 +32,11 @@ function Session (props) {
         if (usedImages[currentIndex]) {
             setCurrentImage(usedImages[currentIndex].src);
         }
-    }, [currentIndex, setCurrentImage, usedImages]);
+
+        if (sessionList[currentIndex]) {
+            setCurrentSession(sessionList[currentIndex])
+        }
+    }, [currentIndex, setCurrentImage, usedImages, sessionList]);
 
     const onNext = () => {
         if (!clonedImages.length) {
@@ -58,6 +65,7 @@ function Session (props) {
                 <StyledControlIcon disabled={currentIndex === 0} onClick={onPrev}>⧏</StyledControlIcon>
                 <StyledControlIcon onClick={onNext}>⧐</StyledControlIcon>
             </StyledControlBar>
+            { (!!currentSession && !currentSession?.unlimited) && (<Timer session={currentSession} paused={paused} handleNext={onNext} />) }
         </StyledSessionContainer>
     )
 }
