@@ -4,6 +4,7 @@ import FilePreviewSection from "./FilePreviewSection";
 import { useState } from "react";
 import SelectSessionSection from "./SelectSessionSection";
 import { withTheme } from "styled-components";
+import Header from "./Header";
 
 function Main({theme}) {
     const [images, setSelectedImages] = useState([]);
@@ -11,6 +12,7 @@ function Main({theme}) {
 
     return(
         <main style={{backgroundColor: theme?.body?.bg}}>
+            <Header />
             <StyledContentParent flexDirection="column">
                 <FileUploadSection setSelectedImages={setSelectedImages} images={images} />
                 <FilePreviewSection setSelectedImages={setSelectedImages} images={images} />

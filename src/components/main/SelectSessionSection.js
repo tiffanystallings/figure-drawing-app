@@ -10,7 +10,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import StyledLink from "../styled/StyledLink";
 import StyledButton from "../styled/StyledButton";
 
-export default function SelectSessionSection ({images}) {
+export default function SelectSessionSection ({images, startSession}) {
     const [sessionList, setSessionList] = useState([]);
     const [sessionOptions, setSessionOptions] = useState([
         { name: '30 seconds', unlimited: false, seconds: 30, value: 0 },
@@ -151,7 +151,7 @@ export default function SelectSessionSection ({images}) {
                     justify="center">
                     <StyledButton 
                         disabled={!sessionList.length || !images.length} 
-                        onClick={() => console.log('Wee~!')}
+                        onClick={() => startSession(images, sessionList)}
                     >
                         Click to begin practice session!
                     </StyledButton>
