@@ -10,9 +10,19 @@ const Link = styled.a`
 `
 
 function StyledLink(props) {
-    const {onClick, children} = props;
+    const {onClick, children, href} = props;
 
-    return (<Link onClick={onClick}>{children}</Link>)
+    const handleClick = (e) => {
+        if (!!href) {
+            window.open(href);
+        }
+
+        if (!!onClick) {
+            onClick(e)
+        }
+    }
+
+    return (<Link onClick={handleClick}>{children}</Link>)
 }
 
 export default withTheme(StyledLink);
