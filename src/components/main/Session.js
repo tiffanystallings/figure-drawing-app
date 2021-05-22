@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { withRouter } from "react-router";
+import { useHistory, withRouter } from "react-router";
 import StyledControlBar from "../styled/StyledControlBar";
 import StyledControlIcon from "../styled/StyledControlIcon";
 import StyledSessionContainer from "../styled/StyledSessionContainer";
@@ -9,6 +9,7 @@ import Timer from "./Timer";
 function Session (props) {
     const {location} = props;
     const {sessionList, images} = location.state;
+    const history = useHistory();
 
     const clonedImages = useMemo(() => [...images], [images]);
     const usedImages = useMemo(() => [], []);
@@ -39,7 +40,8 @@ function Session (props) {
     }, [currentIndex, setCurrentImage, usedImages, sessionList]);
 
     const endSession = () => {
-        console.log('All done!');
+        // TODO: Replace with confirmation modal
+        history.push('/');
     }
 
     const onNext = () => {
@@ -52,6 +54,10 @@ function Session (props) {
             if (currentIndex === usedImages.length - 1) {
                 // We're at the end of usedImages
                 addNextImage();
+            }
+
+            if (paused) {
+                setPaused(false);
             }
 
             setCurrentIndex(currentIndex + 1);
@@ -73,6 +79,7 @@ function Session (props) {
                 <StyledControlIcon disabled={currentIndex === 0} onClick={onPrev}>⏮</StyledControlIcon>
                 <StyledControlIcon disabled={paused} onClick={() => setPaused(true)}>⏸</StyledControlIcon>
                 <StyledControlIcon disabled={!paused} onClick={() => setPaused(false)}>⏵</StyledControlIcon>
+                <StyledControlIcon onClick={endSession}>■</StyledControlIcon>
                 <StyledControlIcon disabled={currentIndex === sessionList.length -1} onClick={onNext}>⏭</StyledControlIcon>
             </StyledControlBar>
             { (!!currentSession && !currentSession?.unlimited) && (<Timer session={currentSession} paused={paused} handleNext={onNext} />) }

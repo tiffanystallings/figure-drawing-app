@@ -21,7 +21,7 @@ export default function Timer(props) {
         if (expired) {
             handleNext();
         }
-        
+    // eslint-disable-next-line    
     }, [expired]);
 
     const {
