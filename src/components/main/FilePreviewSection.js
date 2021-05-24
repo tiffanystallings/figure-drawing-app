@@ -1,19 +1,21 @@
 import _ from "lodash";
+import { connect } from "react-redux";
+import { removeAllImages, removeImage } from "../../redux/reducers";
 import StyledAlternateContentArea from "../styled/StyledAlternateContentArea";
 import StyledContentArea from "../styled/StyledContentArea";
 import StyledImageThumbnail from "../styled/StyledImageThumbnail";
 import StyledLink from "../styled/StyledLink";
 import StyledSubHeading from "../styled/StyledSubHeading";
 
-export default function FilePreviewSection(props) {
-    const {setSelectedImages, images} = props;
+function FilePreviewSection(props) {
+    const {images, removeImage, removeAll} = props;
 
     const ThumbnailList = () => {
         return _.map(images, (image) => (  
             <StyledImageThumbnail 
                 src={image.src} 
                 key={image.id}
-                onRemove={() => setSelectedImages(images.filter((img) => img.id !== image.id ))}
+                onRemove={() => removeImage(image)}
             />
         ))
     };
@@ -31,8 +33,19 @@ export default function FilePreviewSection(props) {
                     margin="0">
                     <ThumbnailList />
                 </StyledAlternateContentArea>
-                <StyledLink onClick={() => setSelectedImages([])}>Remove All</StyledLink>
+                <StyledLink onClick={() => removeAll()}>Remove All</StyledLink>
             </StyledContentArea>
         </section>
     )
 }
+
+const mapStateToProps = (state) => ({
+    images: state.images
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    removeImage: (image) => dispatch(removeImage(image)),
+    removeAll: () => dispatch(removeAllImages())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilePreviewSection);

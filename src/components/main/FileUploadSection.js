@@ -1,39 +1,47 @@
 import _ from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { addImage } from "../../redux/reducers";
 import StyledContentArea from "../styled/StyledContentArea";
 import StyledFilePicker from "../styled/StyledFilePicker";
 import StyledLoadingBar from "../styled/StyledLoadingBar";
 import StyledSubHeading from "../styled/StyledSubHeading";
 
-export default function FileUploadSection(props) {
-    const {setSelectedImages, images} = props;
+function FileUploadSection(props) {
+    const {images, addImage} = props;
 
     const [loading, setLoading] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [totalLoading, setTotalLoading] = useState(0);
+    const [initialImageCount, setInitialImageCount] = useState(images.length);
 
     const handleChange = (e) => {
-        let uploadedImages = []
-
         setLoading(true);
+        setTotalLoading(e.length);
+        setInitialImageCount(images.length);
 
-        _.forEach(e, (file, idx) => {
+        _.forEach(e, (file) => {
             let reader = new FileReader();
 
             reader.onloadend = ev => {
-                uploadedImages.push({ name: file.name, src: ev.target.result, id: _.uniqueId() });
-
-                setProgress((uploadedImages.length / e.length) * 100);
-
-                // Wait for last image to be pushed, then set state
-                if (uploadedImages.length === e.length) {
-                    setSelectedImages([...images, ...uploadedImages]);
-                    setLoading(false);
-                }
+                addImage({ name: file.name, src: ev.target.result, id: _.uniqueId() });
             }
 
             reader.readAsDataURL(file);
         })
     }
+
+    useEffect(() => {
+        if (totalLoading > 0) {
+            let expectedLength = initialImageCount + totalLoading
+            setProgress((images.length / expectedLength) * 100);
+
+            if (loading && images.length === expectedLength) {
+                setLoading(false);
+                setTotalLoading(0);
+            }
+        }
+    }, [images, totalLoading, initialImageCount, loading])
 
     return(
         <section>
@@ -52,3 +60,13 @@ export default function FileUploadSection(props) {
         </section>
     )
 }
+
+const mapStateToProps = (state) => ({
+    images: state.images
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addImage: (image) => dispatch(addImage(image))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUploadSection);

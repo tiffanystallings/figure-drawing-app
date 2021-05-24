@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { connect } from "react-redux";
 import { useHistory, withRouter } from "react-router";
 import StyledControlBar from "../styled/StyledControlBar";
 import StyledControlIcon from "../styled/StyledControlIcon";
@@ -7,8 +8,7 @@ import StyledSessionImage from "../styled/StyledSessionImage";
 import Timer from "./Timer";
 
 function Session (props) {
-    const {location} = props;
-    const {sessionList, images} = location.state;
+    const {sessionList, images} = props;
     const history = useHistory();
 
     const clonedImages = useMemo(() => [...images], [images]);
@@ -87,4 +87,9 @@ function Session (props) {
     )
 }
 
-export default withRouter(Session);
+const mapStateToProps = (state) => ({
+    images: state.images,
+    sessionList: state.sessionList
+});
+
+export default connect(mapStateToProps, null)(withRouter(Session));

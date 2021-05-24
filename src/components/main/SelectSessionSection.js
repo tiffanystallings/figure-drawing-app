@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import StyledAlternateContentArea from "../styled/StyledAlternateContentArea";
 import StyledContentArea from "../styled/StyledContentArea";
 import StyledSelector from "../styled/StyledSelector";
@@ -9,63 +8,50 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import StyledLink from "../styled/StyledLink";
 import StyledButton from "../styled/StyledButton";
+import { connect } from "react-redux";
+import { 
+    addSession, 
+    changeValue, 
+    moveSession, 
+    removeAllSessions, 
+    removeSession, 
+    removeLast,
+    resetAll
+} from "../../redux/reducers";
 
-export default function SelectSessionSection ({images, startSession}) {
-    const [sessionList, setSessionList] = useState([]);
-    const [sessionOptions, setSessionOptions] = useState([
-        { name: '30 seconds', unlimited: false, seconds: 30, value: 0 },
-        { name: '1 minute', unlimited: false, seconds: 60, value: 0 },
-        { name: '2 minutes', unlimited: false, seconds: 120, value: 0 },
-        { name: '3 minutes', unlimited: false, seconds: 180, value: 0 },
-        { name: '5 minutes', unlimited: false, seconds: 300, value: 0 },
-        { name: '10 minutes', unlimited: false, seconds: 600, value: 0 },
-        { name: '15 minutes', unlimited: false, seconds: 900, value: 0 },
-        { name: '20 minutes', unlimited: false, seconds: 1200, value: 0 },
-        { name: 'Unlimited', unlimited: true, seconds: 9999, value: 0 }
-    ]);
+function SelectSessionSection (props) {
+    const {
+        images,
+        addSession,
+        removeSession,
+        removeLast,
+        moveSession,
+        removeAllSessions,
+        sessionOptions,
+        changeValue,
+        resetAllOptions,
+        sessionList
+    } = props;
 
     const handleSessionChange = (e, session) => {
         if (e === -1) {
-            let sessionListClone = [...sessionList];
-            let idx = _.findLastIndex(sessionListClone, s => s.seconds === session.seconds);
-            sessionListClone.splice(idx, 1);
-            setSessionList(sessionListClone);
+            removeLast(session);
         } else if (e === 1) {
-            setSessionList([...sessionList, {id: _.uniqueId(), ...session}]);
+            addSession(session);
         }
 
-        let sessionOptionsClone = [...sessionOptions];
-        sessionOptionsClone[_.findIndex(sessionOptionsClone, option => option.seconds === session.seconds)]
-             .value += e
-        setSessionOptions(sessionOptionsClone);
+        changeValue(session, e);
     }
 
     const handleRemove = (session) => {
-        let sessionListClone = [...sessionList];
-        let sessionOptionsClone = [...sessionOptions];
-
-        _.remove(sessionListClone, s => s.id === session.id);
-        sessionOptionsClone[_.findIndex(sessionOptionsClone, option => option.seconds === session.seconds)]
-            .value--;
-        
-        setSessionList(sessionListClone);
-        setSessionOptions(sessionOptionsClone);
+        removeSession(session);
+        changeValue(session, -1);
     }
 
     const handleRemoveAll = () => {
-        setSessionList([]);
-        setSessionOptions(_.map(sessionOptions, option => ({...option, value: 0})));
+        removeAllSessions();
+        resetAllOptions();
     }
-
-    const handleDrag = useCallback((dragIdx, hoverIdx) => {
-        let sessionListClone = [...sessionList];
-        let dragCard = sessionListClone[dragIdx];
-
-        sessionListClone.splice(dragIdx, 1);
-        sessionListClone.splice(hoverIdx, 0, dragCard);
-
-        setSessionList(sessionListClone);
-    }, [sessionList]);
 
     const getTotalTime = () => {
         if(_.some(sessionList, session => !!session.unlimited)) {
@@ -97,7 +83,7 @@ export default function SelectSessionSection ({images, startSession}) {
             id={session.id}
             index={index}
             onRemove={() => handleRemove(session)}
-            onDrag={(dragIdx, hoverIdx) => handleDrag(dragIdx, hoverIdx)}
+            onDrag={(dragIdx, hoverIdx) => moveSession(dragIdx, hoverIdx)}
         >
             { session.name }
         </StyledDraggableCard>
@@ -158,3 +144,21 @@ export default function SelectSessionSection ({images, startSession}) {
         </section>
     )
 }
+
+const mapStateToProps = (state) => ({
+    images: state.images,
+    sessionList: state.sessionList,
+    sessionOptions: state.sessionOptions
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addSession: (session) => dispatch(addSession(session)),
+    removeSession: (session) => dispatch(removeSession(session)),
+    removeLast: (session) => dispatch(removeLast(session)),
+    moveSession: (grabIdx, hoverIdx) => dispatch(moveSession([grabIdx, hoverIdx])),
+    removeAllSessions: () => dispatch(removeAllSessions()),
+    changeValue: (session, valueChange) => dispatch(changeValue([session, valueChange])),
+    resetAllOptions: () => dispatch(resetAll())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectSessionSection);

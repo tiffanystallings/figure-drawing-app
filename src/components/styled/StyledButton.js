@@ -30,12 +30,12 @@ const FakeButton = styled.span`
 `
 
 function StyledButton(props) {
-    const {children, disabled, to, state} = props;
+    const {children, disabled, to} = props;
 
     return (
         <>
             {!disabled ? (
-                <Button to={to} state={state}>{children}</Button>
+                <Button to={to}>{children}</Button>
             ) : (
                 <FakeButton>{children}</FakeButton>
             )}
