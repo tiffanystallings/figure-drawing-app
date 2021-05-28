@@ -92,53 +92,57 @@ function SelectSessionSection (props) {
     return(
         <section>
             <StyledContentArea
-                width="1400px"
-                margin="15px auto"
-                flexDirection="column"
-                justify="center">
-                <StyledSubHeading>Construct Your Session:</StyledSubHeading>
-
+                margin="30px 0"
+            >
                 <StyledContentArea
-                    margin="0"
-                    padding="0"
-                    width="1000px">
+                    width="1400px"
+                    margin="15px auto"
+                    flexDirection="column"
+                    justify="center">
+                    <StyledSubHeading>Construct Your Session:</StyledSubHeading>
+
                     <StyledContentArea
-                        width="40%"
                         margin="0"
-                        flexDirection="column">
-                        <SessionSelectorList />
+                        padding="0"
+                        width="1300px">
+                        <StyledContentArea
+                            width="30%"
+                            margin="0"
+                            flexDirection="column">
+                            <SessionSelectorList />
+                        </StyledContentArea>
+
+                        <StyledAlternateContentArea
+                            width="70%"
+                            margin="0"
+                            padding="5px"
+                            maxHeight="290px"
+                            flexDirection="column">
+                            <DndProvider backend={HTML5Backend}>
+                                <CardList />
+                            </DndProvider>
+                        </StyledAlternateContentArea>
                     </StyledContentArea>
 
-                    <StyledAlternateContentArea
-                        width="60%"
+                    <StyledContentArea
+                        width="1300px"
                         margin="0"
-                        padding="5px"
-                        maxHeight="290px"
-                        flexDirection="column">
-                        <DndProvider backend={HTML5Backend}>
-                            <CardList />
-                        </DndProvider>
-                    </StyledAlternateContentArea>
-                </StyledContentArea>
+                        padding="0"
+                        justify="space-between">
+                            <span>Total Time: {getTotalTime()}</span>
+                            <StyledLink onClick={() => handleRemoveAll()}>Remove All</StyledLink>
+                    </StyledContentArea>
 
-                <StyledContentArea
-                    width="1000px"
-                    margin="0"
-                    padding="0"
-                    justify="space-between">
-                        <span>Total Time: {getTotalTime()}</span>
-                        <StyledLink onClick={() => handleRemoveAll()}>Remove All</StyledLink>
-                </StyledContentArea>
-
-                <StyledContentArea
-                    width="1000px"
-                    margin="0"
-                    padding="10px 0"
-                    justify="center">
-                    <StyledButton
-                        disabled={!sessionList.length || !images.length}
-                        to={{ pathname: '/session', state: {images, sessionList}}} 
-                    >Click here to start your practice session!</StyledButton>
+                    <StyledContentArea
+                        width="1300px"
+                        margin="0"
+                        padding="10px 0"
+                        justify="center">
+                        <StyledButton
+                            disabled={!sessionList.length || !images.length}
+                            to={{ pathname: '/session', state: {images, sessionList}}} 
+                        >Click here to start your practice session!</StyledButton>
+                    </StyledContentArea>
                 </StyledContentArea>
             </StyledContentArea>
         </section>

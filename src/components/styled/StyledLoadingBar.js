@@ -1,15 +1,17 @@
 import styled, { withTheme } from "styled-components";
 
 const LoadingBarOuter = styled.div`
-border: 5px solid ${props => props.theme.displayArea.fg};
+border: 2px solid ${props => props.theme.displayArea.fg};
+border-radius: 10px;
 width: ${props => props.width ?? '300px'};
 height: ${props => props.height ?? '30px'};
-margin: 5px;
+margin: 10px;
 `
 
 const LoadingBarInner = styled.div`
 background-color: ${props => props.theme.displayArea.fg};
 height: 100%;
+border-radius: 5px;
 width: ${props => props.percent ?? '0'}%;
 `
 

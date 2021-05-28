@@ -35,7 +35,9 @@ const theme = {
     },
     displayArea: {
         bg: lightBlue,
-        fg: lavender
+        fg: lavender,
+        gradStart: lightBlue,
+        gradEnd: '#eef6fc'
     },
     link: {
         color: lavender,

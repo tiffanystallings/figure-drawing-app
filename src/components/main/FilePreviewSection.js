@@ -23,17 +23,20 @@ function FilePreviewSection(props) {
     return (
         <section>
             <StyledContentArea
-                width="1400px"
-                margin="0 auto"
-                flexDirection="column"
-                justify="center">
-                <StyledSubHeading>Selected Images ({images.length}):</StyledSubHeading>
-                <StyledAlternateContentArea 
-                    width="1000px"
-                    margin="0">
-                    <ThumbnailList />
-                </StyledAlternateContentArea>
-                <StyledLink onClick={() => removeAll()}>Remove All</StyledLink>
+                margin="30px 0">
+                <StyledContentArea
+                    width="1400px"
+                    margin="0 auto"
+                    flexDirection="column"
+                    justify="center">
+                    <StyledSubHeading>Selected Images ({images.length}):</StyledSubHeading>
+                    <StyledAlternateContentArea 
+                        width="1300px"
+                        margin="0">
+                        <ThumbnailList />
+                    </StyledAlternateContentArea>
+                    <StyledLink onClick={() => removeAll()}>Remove All</StyledLink>
+                </StyledContentArea>
             </StyledContentArea>
         </section>
     )

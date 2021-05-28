@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled, { withTheme } from "styled-components";
 
 const Image = (props) => (
@@ -17,11 +18,13 @@ border-radius:3px;
 margin: 5px;
 height: 160px;
 position: relative;
+display: ${props => props.hidden ? 'none' : 'block'}
 `
 
 const RemoveButton = styled.button`
-background-color: red;
+background-color: ${props => props.theme.button.bg};
 color: white;
+font-weight: bold;
 border-radius: 0;
 border: 0;
 position: absolute;
@@ -34,15 +37,21 @@ cursor: pointer;
 function StyledImageThumbnail(props) {
 
     const {src, onRemove} = props;
+    const [hidden, setHidden] = useState(false);
 
     const handleRemove = () => {
-        onRemove()
+        setHidden(true);
+
+        // Force react to hide first THEN remove from store
+        setTimeout(() => {
+            onRemove();
+        });
     }
 
     return (
-        <StyledThumbnail>
+        <StyledThumbnail hidden={hidden}>
             <StyledImage src={src}/>
-            <RemoveButton onClick={handleRemove}>X</RemoveButton>
+            <RemoveButton onClick={handleRemove}>✖</RemoveButton>
         </StyledThumbnail>
     )
 }

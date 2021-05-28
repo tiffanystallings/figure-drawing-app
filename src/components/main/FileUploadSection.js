@@ -16,19 +16,21 @@ function FileUploadSection(props) {
     const [initialImageCount, setInitialImageCount] = useState(images.length);
 
     const handleChange = (e) => {
-        setLoading(true);
-        setTotalLoading(e.length);
-        setInitialImageCount(images.length);
-
-        _.forEach(e, (file) => {
-            let reader = new FileReader();
-
-            reader.onloadend = ev => {
-                addImage({ name: file.name, src: ev.target.result, id: _.uniqueId() });
-            }
-
-            reader.readAsDataURL(file);
-        })
+        if (!!e.length) {
+            setLoading(true);
+            setTotalLoading(e.length);
+            setInitialImageCount(images.length);
+    
+            _.forEach(e, (file) => {
+                let reader = new FileReader();
+    
+                reader.onloadend = ev => {
+                    addImage({ name: file.name, src: ev.target.result, id: _.uniqueId() });
+                }
+    
+                reader.readAsDataURL(file);
+            })
+        }
     }
 
     useEffect(() => {
@@ -46,16 +48,20 @@ function FileUploadSection(props) {
     return(
         <section>
             <StyledContentArea
-                width="1400px"
-                flexDirection="column"
-                justify="center"
-                margin="15px auto">
-                <StyledSubHeading>Add reference images you would like included in your practice:</StyledSubHeading>
-                <StyledFilePicker
-                    disabled={loading} 
-                    onChange={(e) => handleChange(e)} 
-                />
-                {loading && (<StyledLoadingBar percent={progress} />)}
+                margin="30px 0"
+            >
+                <StyledContentArea
+                    width="1400px"
+                    flexDirection="column"
+                    justify="center"
+                    margin="0 auto">
+                    <StyledSubHeading>Add reference images you would like included in your practice:</StyledSubHeading>
+                    <StyledFilePicker
+                        disabled={loading} 
+                        onChange={(e) => handleChange(e)} 
+                    />
+                    {loading && (<StyledLoadingBar percent={progress} />)}
+                </StyledContentArea>
             </StyledContentArea>
         </section>
     )

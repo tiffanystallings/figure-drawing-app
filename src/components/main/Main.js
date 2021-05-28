@@ -10,7 +10,7 @@ import Introduction from "./Introduction";
 
 function Main({theme}) {
     return(
-        <main style={{backgroundColor: theme?.body?.bg}}>
+        <main style={{backgroundColor: theme?.body?.bg, backgroundImage: 'url("/background.png")'}}>
             <Header />
             <StyledContentParent flexDirection="column">
                 <Introduction />
