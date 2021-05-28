@@ -18,8 +18,6 @@ width: ${props => props.percent ?? '0'}%;
 function StyledLoadingBar(props) {
     const {percent, width, height} = props;
 
-
-
     return (
         <LoadingBarOuter
             width={width}

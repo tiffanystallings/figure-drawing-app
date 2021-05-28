@@ -9,22 +9,25 @@ const ContentArea = styled.div`
     font-family: ${props => props.theme.main.font};
     padding: ${props => props.padding ?? '15px'};
     margin: ${props => props.margin ?? '15px auto'};
-    display: flex;
+    display: ${props => props.display ?? 'flex'};
     flex-wrap: wrap;
     flex-direction: ${props => props.flexDirection ?? 'row'};
-    ${props => (props.flexDirection === 'column' ? 
-        `align-items: ${props.justify ?? 'flex-start'};` : 
-        `justify-content: ${props.justify ?? 'flex-start'};`)}
-    ${props => (props.flexDirection !== 'column' ? 
-        `align-items: ${props.align ?? 'flex-start'};` : 
-        `justify-content: ${props.align ?? 'flex-start'};`)}
-
+    ${props => (!!props.display && props.display !== 'flex' ?  
+        `text-align: ${props.justify}` : `
+        ${props.flexDirection === 'column' ? 
+            `align-items: ${props.justify ?? 'flex-start'};` : 
+            `justify-content: ${props.justify ?? 'flex-start'};`}
+        ${props.flexDirection !== 'column' ? 
+            `align-items: ${props.align ?? 'flex-start'};` : 
+            `justify-content: ${props.align ?? 'flex-start'};`}
+    `)}
 `
 
 function StyledContentArea(props) {
     const {
         width,
         height,
+        display,
         flexDirection,
         justify,
         align,
@@ -38,6 +41,7 @@ function StyledContentArea(props) {
         <ContentArea 
             width={width}
             height={height}
+            display={display}
             flexDirection={flexDirection}
             justify={justify}
             align={align}
