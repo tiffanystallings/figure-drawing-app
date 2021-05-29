@@ -7,7 +7,7 @@ const Icon = styled.button`
     border: 0;
     cursor: ${props => props.disabled ? 'default' : 'pointer'};
     opacity: ${props => props.disabled ? '0.5' : '1'};
-    font-family: revert;
+    font-family: sans-serif;
     min-width: 55px;
 `
 

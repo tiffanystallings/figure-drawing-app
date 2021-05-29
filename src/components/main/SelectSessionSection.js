@@ -140,7 +140,7 @@ function SelectSessionSection (props) {
                         justify="center">
                         <StyledButton
                             disabled={!sessionList.length || !images.length}
-                            to={{ pathname: '/session', state: {images, sessionList}}} 
+                            to={{ pathname: '/session' }} 
                         >Click here to start your practice session!</StyledButton>
                     </StyledContentArea>
                 </StyledContentArea>
